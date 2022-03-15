@@ -28,6 +28,26 @@ class myArray {
       func(this.arr[i]);
     }
   }
+
+  reduce(func, initialValue = null) {
+    let accumulator = null;
+    if (this.arr.length == 0) {
+      return null;
+    }
+    let i = 0;
+
+    if (initialValue == null) {
+      accumulator = this.arr[0];
+      i++;
+    } else {
+      accumulator = initialValue;
+    }
+
+    for (; i < this.arr.length; i++) {
+      accumulator = func(accumulator, this.arr[i]);
+    }
+    return accumulator;
+  }
 }
 
 //////////////////////////Map function Test Run
@@ -76,3 +96,13 @@ test.forEach((ele) => {
 });
 
 //////////////////////////reduce function Test Run
+// it takes a function of the form func(accumulator, currentElement)
+//and reduces the array to a single value
+console.log("reduce function");
+
+function sumAll(sum, currElement) {
+  return sum + currElement;
+}
+
+let reduceArr = new myArray([100, 2, 3, 4, 5]);
+console.log(reduceArr.reduce(sumAll));
